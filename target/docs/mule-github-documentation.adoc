@@ -1,0 +1,696 @@
+:toc:               left
+:toc-title:         Mule GitHub Connector
+:toclevels:         2
+:last-update-label!:
+:docinfo:
+:source-highlighter: coderay
+:icons: font
+
+
+= Mule GitHub Connector Documentation Reference
+
++++
+This is the main class of an extension, is the entry point from which configurations, connection providers, operations and sources are going to be declared.
++++
+
+
+== Configurations
+---
+[[config]]
+=== Config
+
++++
+Default configuration
++++
+
+==== Parameters
+[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
+|======================
+| Name | Type | Description | Default Value | Required
+|Name | String | The name for this configuration. Connectors reference the configuration with this name. | | *x*{nbsp}
+|======================
+
+
+==== Associated Operations
+* <<UpdatePullRequestOperation>> {nbsp}
+* <<getPullRequestOperation>> {nbsp}
+
+
+
+== Operations
+
+[[UpdatePullRequestOperation]]
+=== Update Pull Request Operation
+`<mule-github:update-pull-request-operation>`
+
+
+==== Parameters
+[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
+|======================
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository Owner a| String |  |  | *x*{nbsp}
+| Repository Name a| String |  |  | *x*{nbsp}
+| Pull Request Number a| String |  |  | *x*{nbsp}
+| Title a| String |  |  | *x*{nbsp}
+| Body a| String |  |  | *x*{nbsp}
+| State a| String |  |  | *x*{nbsp}
+| Base a| String |  |  | *x*{nbsp}
+| Mantainer Can Modify a| Boolean |  |  +++false+++ | {nbsp}
+| Target Variable a| String |  +++The name of a variable on which the operation's output will be placed+++ |  | {nbsp}
+| Target Value a| String |  +++An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable+++ |  +++#[payload]+++ | {nbsp}
+| Reconnection Strategy a| * <<reconnect>>
+* <<reconnect-forever>> |  +++A retry strategy in case of connectivity errors+++ |  | {nbsp}
+|======================
+
+==== Output
+[cols=".^50%,.^50%"]
+|======================
+| *Type* a| String
+|======================
+
+==== For Configurations.
+* <<config>> {nbsp}
+
+==== Throws
+* MULE-GITHUB:CONNECTIVITY {nbsp}
+* MULE-GITHUB:RETRY_EXHAUSTED {nbsp}
+
+
+[[getPullRequestOperation]]
+=== Get Pull Request Operation
+`<mule-github:get-pull-request-operation>`
+
+
+==== Parameters
+[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
+|======================
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository Owner a| String |  |  | *x*{nbsp}
+| Repository Name a| String |  |  | *x*{nbsp}
+| Pull Request State a| String |  |  | *x*{nbsp}
+| Branch Head a| String |  |  | *x*{nbsp}
+| Base a| String |  |  | *x*{nbsp}
+| Sort a| String |  |  | *x*{nbsp}
+| Direction a| String |  |  | *x*{nbsp}
+| Records Per Page a| Number |  |  | *x*{nbsp}
+| Page Number a| Number |  |  | *x*{nbsp}
+| Target Variable a| String |  +++The name of a variable on which the operation's output will be placed+++ |  | {nbsp}
+| Target Value a| String |  +++An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable+++ |  +++#[payload]+++ | {nbsp}
+| Reconnection Strategy a| * <<reconnect>>
+* <<reconnect-forever>> |  +++A retry strategy in case of connectivity errors+++ |  | {nbsp}
+|======================
+
+==== Output
+[cols=".^50%,.^50%"]
+|======================
+| *Type* a| Array of <<GitHubGetPullResponseModel>>
+|======================
+
+==== For Configurations.
+* <<config>> {nbsp}
+
+==== Throws
+* MULE-GITHUB:CONNECTIVITY {nbsp}
+* MULE-GITHUB:RETRY_EXHAUSTED {nbsp}
+
+
+
+== Types
+[[reconnect]]
+=== Reconnect
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Frequency a| Number | How often (in ms) to reconnect |  | 
+| Count a| Number | How many reconnection attempts to make |  | 
+|======================
+
+[[reconnect-forever]]
+=== Reconnect Forever
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Frequency a| Number | How often (in ms) to reconnect |  | 
+|======================
+
+[[GitHubGetPullResponseModel]]
+=== Git Hub Get Pull Response Model
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Active Lock Reason a| Any |  |  | 
+| Assignee a| Any |  |  | 
+| Assignees a| Array of Any |  |  | 
+| Author Association a| String |  |  | 
+| Auto Merge a| Any |  |  | 
+| Base a| <<Base>> |  |  | 
+| Body a| String |  |  | 
+| Closed At a| Any |  |  | 
+| Comments Url a| String |  |  | 
+| Commits Url a| String |  |  | 
+| Created At a| String |  |  | 
+| Diff Url a| String |  |  | 
+| Draft a| Boolean |  |  | 
+| Head a| <<Head>> |  |  | 
+| Html Url a| String |  |  | 
+| Id a| Number |  |  | 
+| Issue Url a| String |  |  | 
+| Labels a| Array of <<Label>> |  |  | 
+| Links a| <<Links>> |  |  | 
+| Locked a| Boolean |  |  | 
+| Merge Commit Sha a| String |  |  | 
+| Merged At a| Any |  |  | 
+| Milestone a| Any |  |  | 
+| Node Id a| String |  |  | 
+| Number a| Number |  |  | 
+| Patch Url a| String |  |  | 
+| Requested Reviewers a| Array of Any |  |  | 
+| Requested Teams a| Array of Any |  |  | 
+| Review Comment Url a| String |  |  | 
+| Review Comments Url a| String |  |  | 
+| State a| String |  |  | 
+| Statuses Url a| String |  |  | 
+| Title a| String |  |  | 
+| Updated At a| String |  |  | 
+| Url a| String |  |  | 
+| User a| <<User>> |  |  | 
+|======================
+
+[[Base]]
+=== Base
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Label a| String |  |  | 
+| Ref a| String |  |  | 
+| Repo a| <<Repo__1>> |  |  | 
+| Sha a| String |  |  | 
+| User a| <<User__2>> |  |  | 
+|======================
+
+[[Repo__1]]
+=== Repo__1
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Allow Forking a| Boolean |  |  | 
+| Archive Url a| String |  |  | 
+| Archived a| Boolean |  |  | 
+| Assignees Url a| String |  |  | 
+| Blobs Url a| String |  |  | 
+| Branches Url a| String |  |  | 
+| Clone Url a| String |  |  | 
+| Collaborators Url a| String |  |  | 
+| Comments Url a| String |  |  | 
+| Commits Url a| String |  |  | 
+| Compare Url a| String |  |  | 
+| Contents Url a| String |  |  | 
+| Contributors Url a| String |  |  | 
+| Created At a| String |  |  | 
+| Default Branch a| String |  |  | 
+| Deployments Url a| String |  |  | 
+| Description a| Any |  |  | 
+| Disabled a| Boolean |  |  | 
+| Downloads Url a| String |  |  | 
+| Events Url a| String |  |  | 
+| Fork a| Boolean |  |  | 
+| Forks a| Number |  |  | 
+| Forks Count a| Number |  |  | 
+| Forks Url a| String |  |  | 
+| Full Name a| String |  |  | 
+| Git Commits Url a| String |  |  | 
+| Git Refs Url a| String |  |  | 
+| Git Tags Url a| String |  |  | 
+| Git Url a| String |  |  | 
+| Has Downloads a| Boolean |  |  | 
+| Has Issues a| Boolean |  |  | 
+| Has Pages a| Boolean |  |  | 
+| Has Projects a| Boolean |  |  | 
+| Has Wiki a| Boolean |  |  | 
+| Homepage a| Any |  |  | 
+| Hooks Url a| String |  |  | 
+| Html Url a| String |  |  | 
+| Id a| Number |  |  | 
+| Is Template a| Boolean |  |  | 
+| Issue Comment Url a| String |  |  | 
+| Issue Events Url a| String |  |  | 
+| Issues Url a| String |  |  | 
+| Keys Url a| String |  |  | 
+| Labels Url a| String |  |  | 
+| Language a| String |  |  | 
+| Languages Url a| String |  |  | 
+| License a| Any |  |  | 
+| Merges Url a| String |  |  | 
+| Milestones Url a| String |  |  | 
+| Mirror Url a| Any |  |  | 
+| Name a| String |  |  | 
+| Node Id a| String |  |  | 
+| Notifications Url a| String |  |  | 
+| Open Issues a| Number |  |  | 
+| Open Issues Count a| Number |  |  | 
+| Owner a| <<Owner__1>> |  |  | 
+| Private a| Boolean |  |  | 
+| Pulls Url a| String |  |  | 
+| Pushed At a| String |  |  | 
+| Releases Url a| String |  |  | 
+| Size a| Number |  |  | 
+| Ssh Url a| String |  |  | 
+| Stargazers Count a| Number |  |  | 
+| Stargazers Url a| String |  |  | 
+| Statuses Url a| String |  |  | 
+| Subscribers Url a| String |  |  | 
+| Subscription Url a| String |  |  | 
+| Svn Url a| String |  |  | 
+| Tags Url a| String |  |  | 
+| Teams Url a| String |  |  | 
+| Topics a| Array of Any |  |  | 
+| Trees Url a| String |  |  | 
+| Updated At a| String |  |  | 
+| Url a| String |  |  | 
+| Visibility a| String |  |  | 
+| Watchers a| Number |  |  | 
+| Watchers Count a| Number |  |  | 
+|======================
+
+[[Owner__1]]
+=== Owner__1
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Avatar Url a| String |  |  | 
+| Events Url a| String |  |  | 
+| Followers Url a| String |  |  | 
+| Following Url a| String |  |  | 
+| Gists Url a| String |  |  | 
+| Gravatar Id a| String |  |  | 
+| Html Url a| String |  |  | 
+| Id a| Number |  |  | 
+| Login a| String |  |  | 
+| Node Id a| String |  |  | 
+| Organizations Url a| String |  |  | 
+| Received Events Url a| String |  |  | 
+| Repos Url a| String |  |  | 
+| Site Admin a| Boolean |  |  | 
+| Starred Url a| String |  |  | 
+| Subscriptions Url a| String |  |  | 
+| Type a| String |  |  | 
+| Url a| String |  |  | 
+|======================
+
+[[User__2]]
+=== User__2
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Avatar Url a| String |  |  | 
+| Events Url a| String |  |  | 
+| Followers Url a| String |  |  | 
+| Following Url a| String |  |  | 
+| Gists Url a| String |  |  | 
+| Gravatar Id a| String |  |  | 
+| Html Url a| String |  |  | 
+| Id a| Number |  |  | 
+| Login a| String |  |  | 
+| Node Id a| String |  |  | 
+| Organizations Url a| String |  |  | 
+| Received Events Url a| String |  |  | 
+| Repos Url a| String |  |  | 
+| Site Admin a| Boolean |  |  | 
+| Starred Url a| String |  |  | 
+| Subscriptions Url a| String |  |  | 
+| Type a| String |  |  | 
+| Url a| String |  |  | 
+|======================
+
+[[Head]]
+=== Head
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Label a| String |  |  | 
+| Ref a| String |  |  | 
+| Repo a| <<Repo>> |  |  | 
+| Sha a| String |  |  | 
+| User a| <<User__1>> |  |  | 
+|======================
+
+[[Repo]]
+=== Repo
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Allow Forking a| Boolean |  |  | 
+| Archive Url a| String |  |  | 
+| Archived a| Boolean |  |  | 
+| Assignees Url a| String |  |  | 
+| Blobs Url a| String |  |  | 
+| Branches Url a| String |  |  | 
+| Clone Url a| String |  |  | 
+| Collaborators Url a| String |  |  | 
+| Comments Url a| String |  |  | 
+| Commits Url a| String |  |  | 
+| Compare Url a| String |  |  | 
+| Contents Url a| String |  |  | 
+| Contributors Url a| String |  |  | 
+| Created At a| String |  |  | 
+| Default Branch a| String |  |  | 
+| Deployments Url a| String |  |  | 
+| Description a| Any |  |  | 
+| Disabled a| Boolean |  |  | 
+| Downloads Url a| String |  |  | 
+| Events Url a| String |  |  | 
+| Fork a| Boolean |  |  | 
+| Forks a| Number |  |  | 
+| Forks Count a| Number |  |  | 
+| Forks Url a| String |  |  | 
+| Full Name a| String |  |  | 
+| Git Commits Url a| String |  |  | 
+| Git Refs Url a| String |  |  | 
+| Git Tags Url a| String |  |  | 
+| Git Url a| String |  |  | 
+| Has Downloads a| Boolean |  |  | 
+| Has Issues a| Boolean |  |  | 
+| Has Pages a| Boolean |  |  | 
+| Has Projects a| Boolean |  |  | 
+| Has Wiki a| Boolean |  |  | 
+| Homepage a| Any |  |  | 
+| Hooks Url a| String |  |  | 
+| Html Url a| String |  |  | 
+| Id a| Number |  |  | 
+| Is Template a| Boolean |  |  | 
+| Issue Comment Url a| String |  |  | 
+| Issue Events Url a| String |  |  | 
+| Issues Url a| String |  |  | 
+| Keys Url a| String |  |  | 
+| Labels Url a| String |  |  | 
+| Language a| String |  |  | 
+| Languages Url a| String |  |  | 
+| License a| Any |  |  | 
+| Merges Url a| String |  |  | 
+| Milestones Url a| String |  |  | 
+| Mirror Url a| Any |  |  | 
+| Name a| String |  |  | 
+| Node Id a| String |  |  | 
+| Notifications Url a| String |  |  | 
+| Open Issues a| Number |  |  | 
+| Open Issues Count a| Number |  |  | 
+| Owner a| <<Owner>> |  |  | 
+| Private a| Boolean |  |  | 
+| Pulls Url a| String |  |  | 
+| Pushed At a| String |  |  | 
+| Releases Url a| String |  |  | 
+| Size a| Number |  |  | 
+| Ssh Url a| String |  |  | 
+| Stargazers Count a| Number |  |  | 
+| Stargazers Url a| String |  |  | 
+| Statuses Url a| String |  |  | 
+| Subscribers Url a| String |  |  | 
+| Subscription Url a| String |  |  | 
+| Svn Url a| String |  |  | 
+| Tags Url a| String |  |  | 
+| Teams Url a| String |  |  | 
+| Topics a| Array of Any |  |  | 
+| Trees Url a| String |  |  | 
+| Updated At a| String |  |  | 
+| Url a| String |  |  | 
+| Visibility a| String |  |  | 
+| Watchers a| Number |  |  | 
+| Watchers Count a| Number |  |  | 
+|======================
+
+[[Owner]]
+=== Owner
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Avatar Url a| String |  |  | 
+| Events Url a| String |  |  | 
+| Followers Url a| String |  |  | 
+| Following Url a| String |  |  | 
+| Gists Url a| String |  |  | 
+| Gravatar Id a| String |  |  | 
+| Html Url a| String |  |  | 
+| Id a| Number |  |  | 
+| Login a| String |  |  | 
+| Node Id a| String |  |  | 
+| Organizations Url a| String |  |  | 
+| Received Events Url a| String |  |  | 
+| Repos Url a| String |  |  | 
+| Site Admin a| Boolean |  |  | 
+| Starred Url a| String |  |  | 
+| Subscriptions Url a| String |  |  | 
+| Type a| String |  |  | 
+| Url a| String |  |  | 
+|======================
+
+[[User__1]]
+=== User__1
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Avatar Url a| String |  |  | 
+| Events Url a| String |  |  | 
+| Followers Url a| String |  |  | 
+| Following Url a| String |  |  | 
+| Gists Url a| String |  |  | 
+| Gravatar Id a| String |  |  | 
+| Html Url a| String |  |  | 
+| Id a| Number |  |  | 
+| Login a| String |  |  | 
+| Node Id a| String |  |  | 
+| Organizations Url a| String |  |  | 
+| Received Events Url a| String |  |  | 
+| Repos Url a| String |  |  | 
+| Site Admin a| Boolean |  |  | 
+| Starred Url a| String |  |  | 
+| Subscriptions Url a| String |  |  | 
+| Type a| String |  |  | 
+| Url a| String |  |  | 
+|======================
+
+[[Label]]
+=== Label
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Color a| String |  |  | 
+| Default a| Boolean |  |  | 
+| Description a| String |  |  | 
+| Id a| Number |  |  | 
+| Name a| String |  |  | 
+| Node Id a| String |  |  | 
+| Url a| String |  |  | 
+|======================
+
+[[Links]]
+=== Links
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Comments a| <<Comments>> |  |  | 
+| Commits a| <<Commits>> |  |  | 
+| Html a| <<Html>> |  |  | 
+| Issue a| <<Issue>> |  |  | 
+| Review Comment a| <<ReviewComment>> |  |  | 
+| Review Comments a| <<ReviewComments>> |  |  | 
+| Self a| <<Self>> |  |  | 
+| Statuses a| <<Statuses>> |  |  | 
+|======================
+
+[[Comments]]
+=== Comments
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Href a| String |  |  | 
+|======================
+
+[[Commits]]
+=== Commits
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Href a| String |  |  | 
+|======================
+
+[[Html]]
+=== Html
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Href a| String |  |  | 
+|======================
+
+[[Issue]]
+=== Issue
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Href a| String |  |  | 
+|======================
+
+[[ReviewComment]]
+=== Review Comment
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Href a| String |  |  | 
+|======================
+
+[[ReviewComments]]
+=== Review Comments
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Href a| String |  |  | 
+|======================
+
+[[Self]]
+=== Self
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Href a| String |  |  | 
+|======================
+
+[[Statuses]]
+=== Statuses
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Href a| String |  |  | 
+|======================
+
+[[User]]
+=== User
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Avatar Url a| String |  |  | 
+| Events Url a| String |  |  | 
+| Followers Url a| String |  |  | 
+| Following Url a| String |  |  | 
+| Gists Url a| String |  |  | 
+| Gravatar Id a| String |  |  | 
+| Html Url a| String |  |  | 
+| Id a| Number |  |  | 
+| Login a| String |  |  | 
+| Node Id a| String |  |  | 
+| Organizations Url a| String |  |  | 
+| Received Events Url a| String |  |  | 
+| Repos Url a| String |  |  | 
+| Site Admin a| Boolean |  |  | 
+| Starred Url a| String |  |  | 
+| Subscriptions Url a| String |  |  | 
+| Type a| String |  |  | 
+| Url a| String |  |  | 
+|======================
+
+[[Tls]]
+=== Tls
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Enabled Protocols a| String | A comma separated list of protocols enabled for this context. |  | 
+| Enabled Cipher Suites a| String | A comma separated list of cipher suites enabled for this context. |  | 
+| Trust Store a| <<TrustStore>> |  |  | 
+| Key Store a| <<KeyStore>> |  |  | 
+| Revocation Check a| * <<standard-revocation-check>>
+* <<custom-ocsp-responder>>
+* <<crl-file>> |  |  | 
+|======================
+
+[[TrustStore]]
+=== Trust Store
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Path a| String | The location (which will be resolved relative to the current classpath and file system, if possible) of the trust store. |  | 
+| Password a| String | The password used to protect the trust store. |  | 
+| Type a| String | The type of store used. |  | 
+| Algorithm a| String | The algorithm used by the trust store. |  | 
+| Insecure a| Boolean | If true, no certificate validations will be performed, rendering connections vulnerable to attacks. Use at your own risk. |  | 
+|======================
+
+[[KeyStore]]
+=== Key Store
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Path a| String | The location (which will be resolved relative to the current classpath and file system, if possible) of the key store. |  | 
+| Type a| String | The type of store used. |  | 
+| Alias a| String | When the key store contains many private keys, this attribute indicates the alias of the key that should be used. If not defined, the first key in the file will be used by default. |  | 
+| Key Password a| String | The password used to protect the private key. |  | 
+| Password a| String | The password used to protect the key store. |  | 
+| Algorithm a| String | The algorithm used by the key store. |  | 
+|======================
+
+[[standard-revocation-check]]
+=== Standard Revocation Check
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Only End Entities a| Boolean | Only verify the last element of the certificate chain. |  | 
+| Prefer Crls a| Boolean | Try CRL instead of OCSP first. |  | 
+| No Fallback a| Boolean | Do not use the secondary checking method (the one not selected before). |  | 
+| Soft Fail a| Boolean | Avoid verification failure when the revocation server can not be reached or is busy. |  | 
+|======================
+
+[[custom-ocsp-responder]]
+=== Custom Ocsp Responder
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Url a| String | The URL of the OCSP responder. |  | 
+| Cert Alias a| String | Alias of the signing certificate for the OCSP response (must be in the trust store), if present. |  | 
+|======================
+
+[[crl-file]]
+=== Crl File
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Path a| String | The path to the CRL file. |  | 
+|======================
+
+[[Reconnection]]
+=== Reconnection
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Fails Deployment a| Boolean | When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy |  | 
+| Reconnection Strategy a| * <<reconnect>>
+* <<reconnect-forever>> | The reconnection strategy to use |  | 
+|======================
+

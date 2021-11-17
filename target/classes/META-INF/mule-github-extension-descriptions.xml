@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension-documentation>
+    <configs>
+        <config name="config">
+            <description><![CDATA[Default configuration]]></description>
+            <parameters/>
+        </config>
+    </configs>
+    <connections>
+        <connection name="basic">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="gitHubPAT">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyConfig">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="tlsContext">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="usePersistentConnections">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="maxConnections">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="connectionIdleTimeout">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="streamResponse">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="responseBufferSize">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="connectionTimeout">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="reconnection">
+                    <description><![CDATA[When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy]]></description>
+                </parameter>
+            </parameters>
+        </connection>
+    </connections>
+    <extension name="Mule GitHub">
+        <description><![CDATA[This is the main class of an extension, is the entry point from which configurations, connection providers, operations and sources are going to be declared.]]></description>
+        <parameters/>
+    </extension>
+    <operations>
+        <operation name="UpdatePullRequestOperation">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="owner">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="repoName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="pullNumber">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="title">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="body">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="state">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="base">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="mantainerCanModify">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getPullRequestOperation">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="owner">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="repoName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="state">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="head">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="base">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sort">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="direction">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="per_age">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="page">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+    </operations>
+    <sources/>
+    <types>
+        <type name="api.proxy.HttpProxyConfig">
+            <description><![CDATA[]]></description>
+            <parameters/>
+        </type>
+        <type name="org.mule.extension.mule.github.internal.service.models.getpull.response.GitHubGetPullResponseModel">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="activeLockReason">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="assignee">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="assignees">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="authorAssociation">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="autoMerge">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="base">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="body">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="closedAt">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="commentsUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="commitsUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="createdAt">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="diffUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="draft">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="head">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="htmlUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="id">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="issueUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="labels">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="links">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="locked">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="mergeCommitSha">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="mergedAt">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="milestone">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="nodeId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="number">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="patchUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="requestedReviewers">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="requestedTeams">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="reviewCommentUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="reviewCommentsUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="state">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="statusesUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="title">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="updatedAt">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="url">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="user">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+    </types>
+</extension-documentation>
