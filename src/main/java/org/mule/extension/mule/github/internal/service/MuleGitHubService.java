@@ -1,14 +1,10 @@
 package org.mule.extension.mule.github.internal.service;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.GsonBuilder;
 import org.mule.extension.mule.github.internal.connection.MuleGitHubConnection;
 import com.mulesoft.extensions.request.builder.RequestBuilder;
 import org.mule.extension.mule.github.internal.service.models.GitHubPatchPullRequestModel;
-import org.mule.extension.mule.github.internal.service.models.getpull.response.GitHubGetPullResponseModel;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import static org.mule.runtime.api.metadata.MediaType.APPLICATION_JSON;
@@ -23,12 +19,12 @@ public class MuleGitHubService {
         this.gitHubPAT = gitHubPAT;
     }
 
-    public List<GitHubGetPullResponseModel> getPullRequests(String owner, String repoName, String state, String head, String base, String sort, String direction,
-                                                      int per_age, int page) throws Exception {
+    public String getPullRequests(String owner, String repoName, String state, String head, String base, String sort, String direction,
+                                  int per_age, int page){
         String url = String.format("%s/%s/%s/pulls", this.rootUrl, owner, repoName);
 
         try {
-            String response = RequestBuilder.get(connection.getHttpClient(),url)
+            return RequestBuilder.get(connection.getHttpClient(),url)
                     .queryParam("state",state)
                     .queryParam("head",head)
                     .queryParam("base",base)
@@ -40,12 +36,8 @@ public class MuleGitHubService {
                     .accept(APPLICATION_JSON)
                     .contentType(APPLICATION_JSON)
                     .execute();
-
-            return new GsonBuilder().create()
-                    .fromJson(response, new TypeToken<List<GitHubGetPullResponseModel>>(){}.getType());
-
         } catch (Exception e){
-            throw new Exception("Error: failed to retrieve the PRs (" + e.getMessage() + ")");
+            return "Error: failed to retrieve the PRs (" + e.getMessage() + ")";
         }
     }
 
@@ -56,9 +48,12 @@ public class MuleGitHubService {
         try {
             return RequestBuilder.patch(connection.getHttpClient(), url)
                     .entity(model)
+                    .header("Authorization","token " + gitHubPAT)
+                    .accept(APPLICATION_JSON)
+                    .contentType(APPLICATION_JSON)
                     .execute();
         } catch (Exception e){
-            return "Error: failed to update pull requests (" + e.getMessage() + ")";
+            return "Error: failed to update pull requests (" + url + ") (" + e.getMessage() + ")";
         }
     }
 }
