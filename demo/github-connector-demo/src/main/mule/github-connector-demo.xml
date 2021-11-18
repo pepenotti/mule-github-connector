@@ -34,9 +34,8 @@ payload map ( payload01 , indexOfPayload01 ) -> {
 } ]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="de0850b0-93ae-4e1c-99b9-9d5bfaf000b2" message="#[payload]"/>
+		<logger level="INFO" doc:name="Log Retrieved PRs" doc:id="de0850b0-93ae-4e1c-99b9-9d5bfaf000b2" message="#[payload]"/>
 		<foreach doc:name="For Each PullRequest" doc:id="a1691149-193b-4682-8fa8-61cd850cfc32" collection="#[payload]" rootMessageVariableName="pullRequest">
-			<logger level="INFO" doc:name="Copy_of_Logger" doc:id="878a35c0-508d-4a69-9247-27e2f06961e5" message="#[payload]" />
 			<choice doc:name="Choice" doc:id="a3c7393c-4297-4ec6-aca6-1708838c37b3" >
 				<when expression='#[(payload.labels contains "wip") and !(payload.title contains vars.wipSTR)]'>
 					<mule-github:update-pull-request-operation doc:name="Update pull request operation" doc:id="f9e865ef-9422-46b3-843c-c6d61188b134" owner="pepenotti" repoName="dynamis" pullNumber="#[payload.number]" title='#[vars.wipSTR ++ " " ++ payload.title]' body="#[payload.body]" state="#[payload.state]" base="#[payload.base]" config-ref="Mule_GitHub_Config"/>
