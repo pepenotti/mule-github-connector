@@ -1,14 +1,14 @@
 {
   "name": "Mule GitHub",
   "description": "This is the main class of an extension, is the entry point from which configurations, connection providers, operations and sources are going to be declared.",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "vendor": "Mulesoft",
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "mule-github",
     "namespace": "http://www.mulesoft.org/schema/mule/mule-github",
     "schemaLocation": "http://www.mulesoft.org/schema/mule/mule-github/current/mule-mule-github.xsd",
-    "schemaVersion": "0.1.9",
+    "schemaVersion": "0.1.10",
     "xsdFileName": "mule-mule-github.xsd"
   },
   "resources": [],

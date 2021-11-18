@@ -4,6 +4,7 @@ import api.proxy.HttpProxyConfig;
 import org.mule.connectors.commons.template.connection.ConnectorConnectionProvider;
 import org.mule.extension.mule.github.internal.connection.MuleGitHubConnection;
 import org.mule.extension.mule.github.internal.connection.providers.param.ConnectionParameterGroup;
+import org.mule.extension.mule.github.internal.service.MuleGitHubService;
 import org.mule.runtime.api.connection.ConnectionException;
 import org.mule.runtime.api.connection.ConnectionProvider;
 import org.mule.runtime.api.connection.ConnectionValidationResult;
@@ -67,7 +68,7 @@ public class MuleGitHubConnectionProvider extends ConnectorConnectionProvider<Mu
 
         httpClient.start();
 
-        return new MuleGitHubConnection(httpClient, gitHubPAT);
+        return new MuleGitHubConnection(httpClient, new MuleGitHubService(httpClient, gitHubPAT));
     }
 
     @Override

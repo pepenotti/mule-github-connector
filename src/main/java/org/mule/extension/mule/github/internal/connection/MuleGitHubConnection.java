@@ -2,6 +2,7 @@ package org.mule.extension.mule.github.internal.connection;
 
 import org.mule.connectors.commons.template.connection.ConnectorConnection;
 import org.mule.extension.mule.github.internal.errors.MuleGithubErrorType;
+import org.mule.extension.mule.github.internal.service.IMuleGitHubService;
 import org.mule.extension.mule.github.internal.service.MuleGitHubService;
 import org.mule.runtime.extension.api.exception.ModuleException;
 import org.mule.runtime.http.api.client.HttpClient;
@@ -12,16 +13,16 @@ import org.mule.runtime.http.api.client.HttpClient;
 public class MuleGitHubConnection implements ConnectorConnection {
     private static final String NULL_CONNECTION_INSTANCE = "Null connection instance";
     private HttpClient httpClient;
-    private MuleGitHubService muleGitHubService;
+    private IMuleGitHubService muleGitHubService;
 
-    public MuleGitHubConnection(HttpClient httpClient, String gitHubPAT){
+    public MuleGitHubConnection(HttpClient httpClient, IMuleGitHubService muleGitHubService){
         this.httpClient = httpClient;
-        this.muleGitHubService = new MuleGitHubService(this, gitHubPAT);
+        this.muleGitHubService = muleGitHubService;
     }
 
     public HttpClient getHttpClient() { return this.httpClient; }
 
-    public MuleGitHubService getMuleGitHubService() { return this.muleGitHubService; }
+    public IMuleGitHubService getMuleGitHubService() { return this.muleGitHubService; }
 
     @Override
     public void disconnect() {
