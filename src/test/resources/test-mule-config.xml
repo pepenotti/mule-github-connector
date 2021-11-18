@@ -2,5 +2,48 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:mule-github="http://www.mulesoft.org/schema/mule/mule-github"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-          http://www.mulesoft.org/schema/mule/mule-github http://www.mulesoft.org/schema/mule/mule-github/current/mule-mule-github.xsd">mvn list
+          http://www.mulesoft.org/schema/mule/mule-github http://www.mulesoft.org/schema/mule/mule-github/current/mule-mule-github.xsd">
+    <mule-github:config name="Mule_GitHub_Config">
+        <mule-github:basic-connection gitHubPAT="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" />
+    </mule-github:config>
+    <flow name="GetPULL">
+        <scheduler>
+            <scheduling-strategy >
+                <fixed-frequency frequency="1" timeUnit="MINUTES"/>
+            </scheduling-strategy>
+        </scheduler>
+        <set-variable value="[WIP] " variableName="wipSTR"/>
+        <mule-github:get-pull-request-operation config-ref="Mule_GitHub_Config" owner="pepenotti" repoName="dynamis" state="open" head="head" base="master" sort="created" direction="desc" per_age="30" page="1"/>
+        <ee:transform doc:name="Transform Message">
+            <ee:message >
+                <ee:set-payload ><![CDATA[%dw 2.0
+                output application/json
+                ---
+                payload map ( payload01 , indexOfPayload01 ) -> {
+                    url: payload01.url,
+                    id: payload01.id,
+                    number: payload01.number,
+                    state: payload01.state,
+                    title: payload01.title,
+                    body: payload01.body,
+                    labels: payload01.labels.name,
+                    base: payload01.base.ref
+                } ]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <logger level="INFO" message="#[payload]"/>
+        <foreach collection="#[payload]" rootMessageVariableName="pullRequest">
+            <logger level="INFO" message="#[payload]" />
+            <choice>
+                <when expression='#[(payload.labels contains "wip") and !(payload.title contains vars.wipSTR)]'>
+                    <mule-github:update-pull-request-operation owner="pepenotti" repoName="dynamis" pullNumber="#[payload.number]" title='#[vars.wipSTR ++ " " ++ payload.title]' body="#[payload.body]" state="#[payload.state]" base="#[payload.base]" config-ref="Mule_GitHub_Config"/>
+                    <logger level="INFO" message='#["PR #" ++ payload.number ++ "was updated"]' />
+                </when>
+                <otherwise >
+                    <logger level="INFO" message='#["PR #" ++ payload.number ++ "ignored"]' />
+                </otherwise>
+            </choice>
+        </foreach>
+        <logger level="INFO" message="Done"/>
+    </flow>
 </mule>

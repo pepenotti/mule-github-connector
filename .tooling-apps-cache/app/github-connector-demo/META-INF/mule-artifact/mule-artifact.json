@@ -1,0 +1,28 @@
+{
+  "configs": [
+    "github-connector-demo.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:github-connector-demo:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.4.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "log4j2.xml",
+        "github-connector-demo.xml",
+        "application-types.xml",
+        "examples/get-pull-output.json",
+        "examples/get-pull-output-single.json",
+        "examples/patch-pull-output.json"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}
