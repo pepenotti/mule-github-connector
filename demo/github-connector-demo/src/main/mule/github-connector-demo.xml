@@ -7,7 +7,7 @@ http://www.mulesoft.org/schema/mule/mule-github http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/chuck-norris http://www.mulesoft.org/schema/mule/chuck-norris/current/mule-chuck-norris.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<mule-github:config name="Mule_GitHub_Config" doc:name="Mule GitHub Config" doc:id="c1503ada-8221-4671-87b8-cb10972fd56f" >
-		<mule-github:basic-connection gitHubPAT="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" />
+		<mule-github:basic-connection gitHubPAT="" />
 	</mule-github:config>
 	<flow name="GetPULL" doc:id="b0a02fd4-620d-46b0-af39-564d286a7d55" >
 		<scheduler doc:name="Scheduler" doc:id="84743e77-8092-4518-853f-69f32e746c2d" >
