@@ -4,7 +4,7 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
           http://www.mulesoft.org/schema/mule/mule-github http://www.mulesoft.org/schema/mule/mule-github/current/mule-mule-github.xsd">
     <mule-github:config name="Mule_GitHub_Config">
-        <mule-github:basic-connection gitHubPAT="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" />
+        <mule-github:basic-connection gitHubPAT="" />
     </mule-github:config>
     <flow name="GetPULL">
         <scheduler>
