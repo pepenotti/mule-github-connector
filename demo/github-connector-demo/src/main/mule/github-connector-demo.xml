@@ -7,16 +7,16 @@ http://www.mulesoft.org/schema/mule/mule-github http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/chuck-norris http://www.mulesoft.org/schema/mule/chuck-norris/current/mule-chuck-norris.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<mule-github:config name="Mule_GitHub_Config" doc:name="Mule GitHub Config" doc:id="c1503ada-8221-4671-87b8-cb10972fd56f" >
-		<mule-github:basic-connection gitHubPAT="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" />
+		<mule-github:basic-connection gitHubPAT="" />
 	</mule-github:config>
-	<flow name="GetPULL" doc:id="b0a02fd4-620d-46b0-af39-564d286a7d55" >
+	<flow name="GetPULL" doc:id="b0a02fd4-620d-46b0-af39-564d286a7d55">
 		<scheduler doc:name="Scheduler" doc:id="84743e77-8092-4518-853f-69f32e746c2d" >
 			<scheduling-strategy >
 				<fixed-frequency frequency="1" timeUnit="MINUTES"/>
 			</scheduling-strategy>
 		</scheduler>
 		<set-variable value="[WIP] " doc:name="Set Variable" doc:id="68272bcc-2f2f-457f-b5cf-2e4dd45ed3f4" variableName="wipSTR"/>
-		<mule-github:get-pull-request-operation doc:name="Get pull request operation" doc:id="eff8829b-6b96-4994-a463-397f746343d7" config-ref="Mule_GitHub_Config" owner="pepenotti" repoName="dynamis" state="open" head="head" base="master" sort="created" direction="desc" per_age="30" page="1"/>
+		<mule-github:get-paged-pull-request-operation doc:name="Get paged pull request operation" doc:id="416befe7-b6cd-4442-9049-b37eab3e2022" config-ref="Mule_GitHub_Config" owner="pepenotti" repoName="dynamis" state="open" head="head" base="master" sort="created" direction="desc" per_age="100" page="1" />
 		<ee:transform doc:name="Transform Message" doc:id="66e8e0cd-d6a4-4487-895a-afd88884dc74" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -47,5 +47,35 @@ payload map ( payload01 , indexOfPayload01 ) -> {
 			</choice>
 		</foreach>
 		<logger level="INFO" doc:name="Logger" doc:id="89adf56f-7d47-4b1b-816b-eb0dc941c085" message="Done"/>
+	</flow>
+	<flow name="GetPagedPULL-test" doc:id="fec6f25c-4f44-4e5d-8360-3eeef37c8566" initialState="stopped">
+		<scheduler doc:name="Scheduler" doc:id="9ab642ce-2be5-4329-a934-0c968c90910b" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="1" timeUnit="HOURS"/>
+			</scheduling-strategy>
+		</scheduler>
+		<set-variable value="[WIP] " doc:name="Copy_of_Set Variable" doc:id="d5ec5d52-0b7c-4658-8094-7416b0c86059" variableName="wipSTR" />
+		<mule-github:get-paged-pull-request-operation doc:name="Get paged pull request operation" doc:id="077c3073-88cd-4f73-ab6b-7ec906d7da7f" config-ref="Mule_GitHub_Config" owner="dotnet" repoName="runtime" state="open" head="head" base="main" sort="created" direction="desc" per_age="30" page="1"/>
+		<logger level="INFO" doc:name="Copy_of_Copy_of_Log Retrieved PRs" doc:id="89bc9d56-01c8-4793-b75d-e29e4232f683" message='#["Total PRs: " ++ sizeOf(payload)]' />
+		<ee:transform doc:name="Copy_of_Copy_of_Transform Message" doc:id="3fc6ee6c-a1d7-4353-8fc9-c9f8bd33901c">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01, indexOfPayload01 ) -> {
+	url: payload01.url,
+	id: payload01.id,
+	number: payload01.number,
+	state: payload01.state,
+	title: payload01.title,
+	body: payload01.body,
+	labels: payload01.labels.name,
+	base: payload01.base.ref
+} ]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Copy_of_Copy_of_Copy_of_Log Retrieved PRs" doc:id="fd1cf62f-660a-442f-b77f-678e1b8fdae0" message='#["Total PRs: " ++ sizeOf(payload)]' />
+		<logger level="INFO" doc:name="Copy_of_Log Retrieved PRs" doc:id="d4312e40-339f-4d39-9114-0b07335cf46b" message="#[payload]" />
+		<logger level="INFO" doc:name="Copy_of_Copy_of_Copy_of_Copy_of_Log Retrieved PRs" doc:id="225fc237-fe39-4b90-87c8-c12409f2f4b2" message='#["Total PRs: " ++ sizeOf(payload)]' />
 	</flow>
 </mule>

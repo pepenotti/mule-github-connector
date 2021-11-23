@@ -923,7 +923,7 @@ type get_pull_output_single = {|
 ]]></types:shape>
     </types:type>
   </types:catalog>
-  <types:enrichment select="#eff8829b-6b96-4994-a463-397f746343d7">
+  <types:enrichment select="#71060121-b662-4b8f-bde2-cb5f63c60e41">
     <types:processor-declaration>
       <types:output-event>
         <types:message>
@@ -932,4 +932,14 @@ type get_pull_output_single = {|
       </types:output-event>
     </types:processor-declaration>
   </types:enrichment>
+  <types:enrichment select="#8ecb4d75-29ec-4c41-955a-30ec91d3a7b7">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="patch-put-output"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#3fc6ee6c-a1d7-4353-8fc9-c9f8bd33901c"/>
 </types:mule>

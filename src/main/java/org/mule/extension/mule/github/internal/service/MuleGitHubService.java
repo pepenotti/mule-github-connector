@@ -1,8 +1,15 @@
 package org.mule.extension.mule.github.internal.service;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.mulesoft.extensions.request.builder.RequestBuilder;
 import org.mule.extension.mule.github.internal.service.models.GitHubPatchPullRequestModel;
+import org.mule.extension.mule.github.internal.service.models.getpull.response.GitHubGetPullResponseModel;
+import org.mule.runtime.api.exception.MuleException;
 import org.mule.runtime.http.api.client.HttpClient;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import static org.mule.runtime.api.metadata.MediaType.APPLICATION_JSON;
 
@@ -16,13 +23,13 @@ public class MuleGitHubService implements IMuleGitHubService {
         this.gitHubPAT = gitHubPAT;
     }
 
-    public String getPullRequests(String owner, String repoName, String state,
-                                  String head, String base, String sort,
-                                  String direction, int per_age, int page){
+    public List<GitHubGetPullResponseModel> getPullRequests(String owner, String repoName, String state,
+                                                            String head, String base, String sort,
+                                                            String direction, int per_age, int page){
         String url = String.format("%s/%s/%s/pulls", this.rootUrl, owner, repoName);
 
         try {
-            return RequestBuilder.get(this.httpClient,url)
+            String result =  RequestBuilder.get(this.httpClient,url)
                     .queryParam("state",state)
                     .queryParam("head",head)
                     .queryParam("base",base)
@@ -34,8 +41,9 @@ public class MuleGitHubService implements IMuleGitHubService {
                     .accept(APPLICATION_JSON)
                     .contentType(APPLICATION_JSON)
                     .execute();
+            return new Gson().fromJson(result, new TypeToken<List<GitHubGetPullResponseModel>>(){}.getType());
         } catch (Exception e){
-            return "Error: failed to retrieve the PRs (" + e.getMessage() + ")";
+            return null;
         }
     }
 
