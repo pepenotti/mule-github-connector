@@ -1,4 +1,4 @@
-# Mule GitHub Extension
+# Mule GitHub Extension [droppped]
 
 This connector was done with the idea to learn how Mule Connectors work, and how to create one from scratch.
 
